@@ -11,10 +11,7 @@ const port = process.env.PORT || 5000
 
 app.use(express.json())
 
-app.use(cors({
-    origin:"https://guileless-moxie-73d900.netlify.app/",
-    credentials: true, 
-}))
+app.use(cors())
 
 app.use("/api/user",router)
 
