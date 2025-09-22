@@ -119,5 +119,29 @@ router.put("/updateUser/:id", async (req, res) => {
 });
 
 
+router.delete("/deleteUser", async (req, res) => {
+  try {
+    const { id } = req.body; // get ID from request body
+
+    if (!id) {
+      return res.status(400).json({ success: false, message: "User ID is required" });
+    }
+
+    const deletedUser = await User.findByIdAndDelete({_id:id});
+
+    if (!deletedUser) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, message: "User deleted successfully", deletedUser });
+  } catch (error) {
+    console.error("Delete user error:", error);
+    res.status(500).json({ success: false, message: "Failed to delete user", error: error.message });
+  }
+});
+
+
+
+
 
 export default router
